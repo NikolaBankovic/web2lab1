@@ -153,10 +153,3 @@ else {
             console.log(`Server running at https://localhost:${port}/`);
         });
 }
-// https.createServer({
-//     key: fs.readFileSync('/etc/secrets/server.key'),
-//     cert: fs.readFileSync('/etc/secrets/server.cert'),
-//     passphrase: process.env.CERT_PASSPHRASE
-// }, app).listen(portnumber, host, () => {
-//     console.log(`Server running at https://localhost:${port}/`);
-// });
