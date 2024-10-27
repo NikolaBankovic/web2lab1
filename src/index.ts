@@ -16,9 +16,8 @@ app.use(express.static(path.join(__dirname)));
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'pug');
 
-const port = process.env.PORT || '3000';
-const portnumber:number = parseInt(port)
-const host = process.env.HOST || 'localhost';
+const externalUrl = process.env.RENDER_EXTERNAL_URL;
+const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 4080;
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -33,7 +32,7 @@ const config = {
     authRequired: false,
     idpLogout: true,
     secret: process.env.SECRET,
-    baseURL: process.env.BASE_URL,
+    baseURL: externalUrl || `https://localhost:${port}`,
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: process.env.ISSUER_BASE_URL,
     clientSecret: process.env.CLIENT_SECRET,
@@ -138,10 +137,26 @@ app.post('/generate-qr', requiresAuth(), async (req: any, res: any) => {
     }
 });
 
-https.createServer({
-    key: fs.readFileSync('/etc/secrets/server.key'),
-    cert: fs.readFileSync('/etc/secrets/server.cert'),
-    passphrase: process.env.CERT_PASSPHRASE
-}, app).listen(portnumber, host, () => {
-    console.log(`Server running at https://localhost:${port}/`);
-});
+if (externalUrl) {
+    const hostname = '0.0.0.0';
+    app.listen(port, hostname, () => {
+        console.log(`Server locally running at http://${hostname}:${port}/ and from
+outside on ${externalUrl}`);
+    });
+}
+else {
+    https.createServer({
+        key: fs.readFileSync('server.key'),
+        cert: fs.readFileSync('server.cert')
+    }, app)
+        .listen(port, function () {
+            console.log(`Server running at https://localhost:${port}/`);
+        });
+}
+// https.createServer({
+//     key: fs.readFileSync('/etc/secrets/server.key'),
+//     cert: fs.readFileSync('/etc/secrets/server.cert'),
+//     passphrase: process.env.CERT_PASSPHRASE
+// }, app).listen(portnumber, host, () => {
+//     console.log(`Server running at https://localhost:${port}/`);
+// });
