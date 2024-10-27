@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname)));
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'pug');
 
-const port = 4080;
+const port = process.env.PORT || 3000;
 
 const pool = new Pool({
     user: process.env.DB_USER,
