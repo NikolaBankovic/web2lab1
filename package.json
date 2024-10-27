@@ -1,0 +1,28 @@
+{
+  "scripts": {
+    "build": "npm run clean && tsc && npm run copy-views && npm run copy-views",
+    "clean": "shx rm -rf dist",
+    "copy-views": "shx cp -r src/views/ dist",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-openid-connect": "^2.17.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "path": "^0.12.7",
+    "pg": "^8.13.1",
+    "pug": "^3.0.3",
+    "qrcode": "^1.5.4",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.10",
+    "@types/qrcode": "^1.5.5",
+    "@types/uuid": "^10.0.0",
+    "shx": "^0.3.4"
+  }
+}

@@ -1,0 +1,50 @@
+doctype html
+html
+    head
+        title QR Code Generation System
+        style.
+            body {
+                background-color: #f0f0f0;
+                font-family: Arial, sans-serif;
+            }
+            h1, h2, p {
+                color: #333;
+                text-align: center;
+            }
+            .container {
+                margin: 20px;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #fff;
+                text-align: center;
+            }
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                color: #fff;
+                background-color: #007bff;
+                text-decoration: none;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+            .button-container .logout-btn {
+                margin-left: auto;
+            }
+    body
+        .container
+            h1 QR Code Generation System
+            if isAuthenticated
+                h2 Total QR Codes Generated: #{totalQRs}
+                .button-container
+                    a.btn(href="/generate-qr") Generate QR Code
+                    a.btn.logout-btn(href='/logout') Logout
+            else
+                h2 Total QR Codes Generated: #{totalQRs}
+                p Please log in to generate QR Codes.
+                a.btn(href='/login') Login
