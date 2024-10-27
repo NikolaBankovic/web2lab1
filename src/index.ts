@@ -16,7 +16,9 @@ app.use(express.static(path.join(__dirname)));
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'pug');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || '3000';
+const portnumber:number = parseInt(port)
+const host = process.env.HOST || 'localhost';
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -140,6 +142,6 @@ https.createServer({
     key: fs.readFileSync('/etc/secrets/server.key'),
     cert: fs.readFileSync('/etc/secrets/server.cert'),
     passphrase: process.env.CERT_PASSPHRASE
-}, app).listen(port, () => {
+}, app).listen(portnumber, host, () => {
     console.log(`Server running at https://localhost:${port}/`);
 });
