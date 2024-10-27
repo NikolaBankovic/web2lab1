@@ -138,7 +138,8 @@ app.post('/generate-qr', requiresAuth(), async (req: any, res: any) => {
 
 https.createServer({
     key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
+    cert: fs.readFileSync('server.cert'),
+    passphrase: process.env.CERT_PASSPHRASE
 }, app).listen(port, () => {
     console.log(`Server running at https://localhost:${port}/`);
 });
