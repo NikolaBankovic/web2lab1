@@ -1,8 +1,8 @@
 {
   "scripts": {
     "build": "npm run clean && tsc && npm run copy-views && npm run copy-views",
-    "clean": "sh rm -rf dist",
-    "copy-views": "sh cp -r src/views/ dist",
+    "clean": "rm -rf dist",
+    "copy-views": "cp -r src/views/ dist",
     "start": "node dist/index.js"
   },
   "dependencies": {
